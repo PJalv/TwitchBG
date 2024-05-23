@@ -71,29 +71,29 @@ async function checkStreams() {
       }
 
       // Update the current tab URL with the list of live streamers
-      if (liveStreamers.length > 0) {
-        const url = "https://twitchtheater.tv/" + liveStreamers.join("/");
-        console.log("URL: ", url);
-        console.log("global_url: ", global_url);
-        if (url !== global_url) {
-          console.log("URL is different, checking if tab is alive");
-          chrome.tabs.get(currentTabId, function (tab) {
-            if (chrome.runtime.lastError || !tab) {
-              console.log("Tab is not alive");
-              chrome.tabs.create({ url: url }).then(function (tab) {
-                currentTabId = tab.id;
-                chrome.storage.sync.set({ currentTabId: currentTabId });
-                console.log("Set TAB ID: ", currentTabId);
-              });
-            } else {
-              console.log("Tab is alive");
-              chrome.tabs.update(currentTabId, { url: url });
-            }
-          });
-        }
-        global_url = url;
-        chrome.storage.sync.set({ global_url: global_url });
-      }
+	    if (liveStreamers.length > 0) {
+		    const url = "https://twitchtheater.tv/" + liveStreamers.join("/");
+		    console.log("URL: ", url);
+		    console.log("global_url: ", global_url);
+		    if (url !== global_url) {
+			    console.log("URL is different, checking if tab is alive");
+			    try {
+				    let tabInfo = await chrome.tabs.get(currentTabId);
+				    console.log("Tab is alive");
+				    chrome.tabs.update(currentTabId, { url: url });
+			    } catch (error) {
+				    console.log("Tab is not alive");
+				    chrome.tabs.create({ url: url }).then(function (tab) {
+					    currentTabId = tab.id;
+					    chrome.storage.sync.set({ currentTabId: currentTabId });
+					    console.log("Set TAB ID: ", currentTabId);
+				    });
+			    }
+		    }
+		    global_url = url;
+		    chrome.storage.sync.set({ global_url: global_url });
+	    }
+
     }
   );
 }
