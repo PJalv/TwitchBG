@@ -23,7 +23,7 @@ This Chrome extension checks specified Twitch and YouTube streams for live statu
    - Enter your Twitch client ID and client secret.
 2. Add the usernames of the Twitch and YouTube streamers you want to monitor:
    - Open the extension's options page.
-   - Enter the usernames of the streamers, one per line. For YouTube streamers, use the format `v=USERNAME`.
+   - Enter the usernames of the streamers, one per line. For YouTube streamers, use the format `v=VIDEO_ID`.
 3. The extension will automatically check the live statuses of the specified streamers every 17 seconds and update a tab with a multi-stream viewer URL if any streams are live.
 
 ## Code Overview
