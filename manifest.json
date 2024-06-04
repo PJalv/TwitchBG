@@ -3,7 +3,9 @@
     "name": "Your Extension Name",
     "version": "1.0",
     "permissions": [
-        "storage"
+        "storage",
+        "scripting",
+        "activeTab"
     ],
     "action": {
         "default_popup": "popup.html"
@@ -11,5 +13,8 @@
     "background": {
         "service_worker": "background.js",
         "persistent": true
-    }
+    },
+    "host_permissions": [
+        "https://twitchtheater.tv/*"
+    ]
 }
